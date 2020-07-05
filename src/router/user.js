@@ -18,7 +18,7 @@ router.post('/users',async(req,res)=>{
        
         res.status(201).send({user,token})
     }catch(error){
-        res.status(400).send(error)
+        res.send(error)
     }
 //     // console.log(req.body)
 //     // res.send('testing')

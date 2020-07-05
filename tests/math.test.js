@@ -23,4 +23,13 @@ test('pass',()=>{
 })
 //======================
 
+test('Async function testing',(done)=>{
+    setTimeout(()=>{
+expect(1).toBe(2)
+done()
+    },2000)
+})
+
+//======================
+
 
