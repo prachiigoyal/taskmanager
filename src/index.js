@@ -2,6 +2,7 @@ const express = require('express')
 require('./db/mongoose')
 const multer= require('multer')
 // const User = require('./models/user')
+const jwt = require('jsonwebtoken')
 
 // const Tasks = require('./models/tasks')
 const userRouter = require('./router/user')
@@ -31,23 +32,28 @@ app.use(express.json())
 app.use(userRouter)
 app.use(taskRouter)
 //==========================================
-// const router = new express.Router()
-// router.get('/test',(req,res)=>{
-//     res.send('This is from the new router')
-// })
-// app.use(router)
-//==========================================
-
-const jwt = require('jsonwebtoken')
-const myFunction=async (req,res) => {
-
+const router = new express.Router()
+router.get('/test',(req,res)=>{
     const token = jwt.sign({_id:'abc123'},'thisismynewcourse',{expiresIn:'1 week'})
 
     console.log(token)
     const data= jwt.verify(token,'thisismynewcourse')
     console.log(data)
-}
-myFunction()
+    res.send(token)
+})
+app.use(router)
+//==========================================
+
+// const myFunction=async (req,res) => {
+
+//     const token = jwt.sign({_id:'abc123'},'thisismynewcourse',{expiresIn:'1 week'})
+
+//     console.log(token)
+//     const data= jwt.verify(token,'thisismynewcourse')
+//     console.log(data)
+// }
+// myFunction()
+//===========================
 
 //     // const password = 'Red12345!'
 //     // const hashedPassword = await bcrypt.hash(password,8)
