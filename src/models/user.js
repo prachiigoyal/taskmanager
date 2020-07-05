@@ -10,10 +10,7 @@ const Tasks= require("./tasks")
 
 
 const userSchema =new mongoose.Schema({
-    avatar:{
-        type:Buffer,
-        // required:true
-    },
+    
     name:{
         type:String,
         required:true,
@@ -41,6 +38,9 @@ const userSchema =new mongoose.Schema({
             throw new Error('Password must atleast be 7 characters long!')
         }
     },
+    // avatar:{
+    //     type:Buffer
+    // },
     age: {
         type:Number,
         default:0,
@@ -52,7 +52,7 @@ const userSchema =new mongoose.Schema({
         },
     
 },
-token:[{
+tokens:[{
     token:{
         type:String,
         required:true
@@ -75,7 +75,7 @@ userSchema.virtual('tasks',{
 userSchema.methods.toJSON= function (){
     const userObject =this.toObject()
     delete userObject.password
-    delete userObject.token
+    delete userObject.tokens
     delete userObject.avatar
     return userObject
 }
@@ -84,9 +84,9 @@ userSchema.methods.toJSON= function (){
 userSchema.methods.generateAuthToken=async function(){
     // const token = jwt.sign({_id:this._id.toString()},process.env.JWT_TOKEN)
     // this.token = this.token.concat({token})
-
+//==========================================================
     const token = jwt.encode({_id:this._id.toString()},process.env.JWT_TOKEN)
-    this.token = this.token.concat({token})
+    this.tokens = this.tokens.concat({token})
     
     await this.save()
 

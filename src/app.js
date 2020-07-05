@@ -1,20 +1,19 @@
-const app = require('./app') 
-const PORT = process.env.PORT 
-// const express = require('express') 
-// require('./db/mongoose')
-// const multer= require('multer')
-// // const User = require('./models/user')
-// const jwt = require('jsonwebtoken')
+const express = require('express') 
+require('./db/mongoose')
+const multer= require('multer')
+// const User = require('./models/user')
+const jwt = require('jsonwebtoken')
 
-// // const Tasks = require('./models/tasks')
-// const userRouter = require('./router/user')
-// const taskRouter = require('./router/task')
-// // const bcrypt = require('bcryptjs')
+// const Tasks = require('./models/tasks')
+const userRouter = require('./router/user')
+const taskRouter = require('./router/task')
+// const bcrypt = require('bcryptjs')
 
-// const { response } = require('express')
-// //isme upar dekho .db/mongoos se humne mongoose file ko import kia
-// // or user file ko bhi import kiya right?hnji
-// const app = express()
+const { response } = require('express')
+//isme upar dekho .db/mongoos se humne mongoose file ko import kia
+// or user file ko bhi import kiya right?hnji
+const app = express()
+// const PORT = process.env.PORT 
 //======================================================
 // app.use((req,res,next)=>{
 // if(req.method === 'GET'){
@@ -29,20 +28,20 @@ const PORT = process.env.PORT
 // })
 //============================================================
 
-// app.use(express.json())
-// app.use(userRouter)
-// app.use(taskRouter)
-// ==========================================
-// const router = new express.Router()
-// router.get('/test',(req,res)=>{
-//     const token = jwt.sign({_id:'abc123'},'thisismynewcourse',{expiresIn:'1 week'})
+app.use(express.json())
+app.use(userRouter)
+app.use(taskRouter)
+//==========================================
+const router = new express.Router()
+router.get('/test',(req,res)=>{
+    const token = jwt.sign({_id:'abc123'},'thisismynewcourse',{expiresIn:'1 week'})
 
-//     console.log(token)
-//     const data= jwt.verify(token,'thisismynewcourse')
-//     console.log(data)
-//     res.send(token)
-// })
-// app.use(router)
+    console.log(token)
+    const data= jwt.verify(token,'thisismynewcourse')
+    console.log(data)
+    res.send(token)
+})
+app.use(router)
 //==========================================
 
 // const myFunction=async (req,res) => {
@@ -66,6 +65,7 @@ const PORT = process.env.PORT
 
 // }
 // myFunction()
+//================================
 
 // const Tasks = require('./models/tasks')
 // const User = require('./models/user')
@@ -90,9 +90,9 @@ const PORT = process.env.PORT
 // }
 // main()
 //==========================================================
-app.listen(PORT,()=>{
-    console.log("SERVER is up on port "+ PORT)
-}) 
+// app.listen(PORT,()=>{
+//     console.log("SERVER is up on port "+ PORT)
+// }) 
 
-
+module.exports= app
 
