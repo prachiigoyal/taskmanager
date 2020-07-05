@@ -1,7 +1,9 @@
 const mongoose = require('mongoose')
 const validator= require('validator')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
+const jwt = require('jwt-simple')
+
 const { request } = require('express')
 const Tasks= require("./tasks")
 
@@ -80,9 +82,12 @@ userSchema.methods.toJSON= function (){
 
 
 userSchema.methods.generateAuthToken=async function(){
-    const token = jwt.sign({_id:this._id.toString()},process.env.JWT_TOKEN)
-    this.token = this.token.concat({token})
+    // const token = jwt.sign({_id:this._id.toString()},process.env.JWT_TOKEN)
+    // this.token = this.token.concat({token})
 
+    const token = jwt.encode({_id:this._id.toString()},process.env.JWT_TOKEN)
+    this.token = this.token.concat({token})
+    
     await this.save()
 
 
