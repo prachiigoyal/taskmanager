@@ -8,10 +8,10 @@ const userOne={
     password:'mypassword'
 }
 
-// beforeEach(async()=>{
-//     await User.deleteMany()
-//     await User(userOne).save()
-// })
+beforeEach(async()=>{
+    await User.deleteMany()
+    await User(userOne).save()
+})
 
 test('signup-user',async()=>{
    await request(app).post('/users').send({
